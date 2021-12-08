@@ -33,6 +33,7 @@ public class TabPanel extends JTabbedPane {
         this.add("D. Uniforme", uniform);
 
         normal = new MethodPanel(new NormalHeader(listener));
+        normal.setTableHeader(new String[] { "Xi", "Ri" });
         this.add("D. Normal", normal);
     }
 
@@ -123,5 +124,22 @@ public class TabPanel extends JTabbedPane {
 
     public void setUniformTableRow(Object[] element) {
         uniform.setTableRow(element);
+    }
+
+    // Normal
+    public void setNormalTableRow(Object[] element) {
+        normal.setTableRow(element);
+    }
+
+    public void resetNormalTable() {
+        normal.resetTable();
+    }
+
+    public void resetNormalGraphic() {
+        normal.resetGraphic();
+    }
+
+    public void setNormalGraphicData(List<Double> interval) {
+        normal.setGraphicData(interval);
     }
 }

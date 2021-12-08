@@ -73,20 +73,20 @@ public class Controller implements ActionListener {
 
     // Normal
     private void manageNormal(Header header) {
-        Normal normal = new Normal(0, null, null);
-        List<Double> aleatory = normal.getAleatory();
-        List<Double> interval = new Interval(header.getMin(), header.getMax(), aleatory).getInterval();
-
-        manageNormalTable(aleatory, interval);
+        List<Double> aleatory = new Uniform(header.getXi()).getAleatory();
+        List<Double> seeds = new Uniform(header.getQuantity()).getAleatory();
+        Normal normal = new Normal(header.getQuantity(), new Interval(header.getMin(), header.getMax(), aleatory),
+                seeds);
+        manageNormalTable(seeds, normal.getAleatory());
     }
 
-    private void manageNormalTable(List<Double> aleatory, List<Double> interval) {
-        window.resetMultiplicativeTable();
-        window.resetMultiplicativeGraphic();
-        window.setMultiplicativeGraphicData(interval);
-        List<Object[]> elements = Ulitities.toObjectArrayList(aleatory, interval);
+    private void manageNormalTable(List<Double> seeds, List<Double> normList) {
+        window.resetNormalTable();
+        window.resetNormalGraphic();
+        window.setNormalGraphicData(normList);
+        List<Object[]> elements = Ulitities.toObjectArrayList(seeds, normList);
         for (Object[] element : elements) {
-            window.setMultiplicativeTableRow(element);
+            window.setNormalTableRow(element);
         }
     }
 

@@ -12,14 +12,13 @@ public class Normal {
     private List<Double> seeds;
 
     public Normal(int quantity, Interval inte, List<Double> aleatoryXi) {
-        aleatory = new ArrayList<>();
         this.average = inte.getAverage();
         this.deviation = inte.getDeviation();
         this.seeds = aleatoryXi;
-        generateRandom();
     }
 
     public List<Double> getAleatory() {
+        aleatory = new ArrayList<>();
         generateRandom();
         return aleatory;
     }

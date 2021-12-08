@@ -23,7 +23,7 @@ public class Window extends JFrame {
         this.setMinimumSize(new Dimension(WIDTH, HEIGHT));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        this.setExtendedState(MAXIMIZED_BOTH);
+        // this.setExtendedState(MAXIMIZED_BOTH);
         initComponents(listener);
     }
 
@@ -118,5 +118,23 @@ public class Window extends JFrame {
 
     public void setUniformTableRow(Object[] element) {
         tabs.setUniformTableRow(element);
+    }
+
+
+    //Normal
+    public void setNormalTableRow(Object[] element) {
+        tabs.setNormalTableRow(element);
+    }
+
+    public void resetNormalTable() {
+        tabs.resetNormalTable();
+    }
+
+    public void resetNormalGraphic() {
+        tabs.resetNormalGraphic();
+    }
+
+    public void setNormalGraphicData(List<Double> interval) {
+        tabs.setNormalGraphicData(interval);
     }
 }

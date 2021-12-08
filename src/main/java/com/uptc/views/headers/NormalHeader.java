@@ -50,4 +50,24 @@ public class NormalHeader extends Header {
         generate.setActionCommand(Command.GENERATE_NORMAL.name());
         this.add(generate);
     }
+
+    @Override
+    public int getMax() {
+        return Integer.valueOf(max.getValue().toString());
+    }
+
+    @Override
+    public int getMin() {
+        return Integer.valueOf(min.getValue().toString());
+    }
+
+    @Override
+    public int getQuantity() {
+        return Integer.valueOf(quantity.getText());
+    }
+
+    @Override
+    public int getXi() {
+        return Integer.parseInt(sampleQuantity.getText());
+    }
 }
