@@ -3,6 +3,7 @@ package com.uptc.models.methods;
 import java.util.ArrayList;
 import java.util.List;
 import com.uptc.utils.Interval;
+import org.apache.commons.math3.distribution.NormalDistribution;
 
 public class Normal {
 
@@ -13,7 +14,9 @@ public class Normal {
 
     public Normal(int quantity, Interval inte, List<Double> aleatoryXi) {
         this.average = inte.getAverage();
+        System.out.println(average);
         this.deviation = inte.getDeviation();
+        System.out.println(deviation);
         this.seeds = aleatoryXi;
     }
 
@@ -25,9 +28,7 @@ public class Normal {
 
     private void generateRandom() {
         for (Double x : seeds) {
-            double num = Math.exp(-Math.pow(x - average, 2) / (2 * Math.pow(deviation, 2)))
-                    / (Math.sqrt(2 * Math.PI) * deviation);
-            aleatory.add(num);
+            aleatory.add(new NormalDistribution(average, deviation).inverseCumulativeProbability(x));
         }
     }
 }

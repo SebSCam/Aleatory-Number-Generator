@@ -10,8 +10,10 @@ import com.uptc.views.Header;
 import com.uptc.views.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.List;
-
+import javax.swing.JOptionPane;
+import com.uptc.utils.FileManager;
 import com.uptc.utils.Interval;
 import com.uptc.utils.Ulitities;
 
@@ -31,33 +33,53 @@ public class Controller implements ActionListener {
         switch (Command.valueOf(e.getActionCommand())) {
             case GENERATE_MIDD:
                 header = window.getMidSrtHeader();
-                manageMiddleSqr(header);
+                try {
+                    manageMiddleSqr(header);
+                } catch (IOException e1) {
+                    JOptionPane.showMessageDialog(null, "App Failure!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
                 break;
             case GENERATE_LINEAS:
                 header = window.getLinearHeader();
-                manageLinear(header);
+                try {
+                    manageLinear(header);
+                } catch (IOException e1) {
+                    JOptionPane.showMessageDialog(null, "App Failure!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
                 break;
             case GENERATE_MULT:
                 header = window.getMultHeader();
-                manageMultiplicative(header);
+                try {
+                    manageMultiplicative(header);
+                } catch (IOException e1) {
+                    JOptionPane.showMessageDialog(null, "App Failure!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
                 break;
             case GENERATE_NORMAL:
                 header = window.getNormalHeader();
-                manageNormal(header);
+                try {
+                    manageNormal(header);
+                } catch (IOException e1) {
+                    JOptionPane.showMessageDialog(null, "App Failure!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
                 break;
             case GENERATE_UNIFORM:
                 header = window.getUniformHeader();
-                manageUniform(header);
+                try {
+                    manageUniform(header);
+                } catch (IOException e1) {
+                    JOptionPane.showMessageDialog(null, "App Failure!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
                 break;
         }
     }
 
     // Uniform
-    private void manageUniform(Header header) {
+    private void manageUniform(Header header) throws IOException {
         Uniform uniform = new Uniform(header.getQuantity());
         List<Double> aleatory = uniform.getAleatory();
         List<Double> interval = new Interval(header.getMin(), header.getMax(), aleatory).getInterval();
-
+        FileManager.writeToArchive(aleatory, "files/uniform.num");
         manageUniformTable(aleatory, interval);
     }
 
@@ -72,11 +94,12 @@ public class Controller implements ActionListener {
     }
 
     // Normal
-    private void manageNormal(Header header) {
+    private void manageNormal(Header header) throws IOException {
         List<Double> aleatory = new Uniform(header.getXi()).getAleatory();
         List<Double> seeds = new Uniform(header.getQuantity()).getAleatory();
         Normal normal = new Normal(header.getQuantity(), new Interval(header.getMin(), header.getMax(), aleatory),
                 seeds);
+        FileManager.writeToArchive(normal.getAleatory(), "files/normal.num");
         manageNormalTable(seeds, normal.getAleatory());
     }
 
@@ -91,13 +114,14 @@ public class Controller implements ActionListener {
     }
 
     // Multiplicative
-    private void manageMultiplicative(Header header) {
+    private void manageMultiplicative(Header header) throws IOException {
         Multiplicative multiplicative = new Multiplicative(header.getXi(), header.getT(), header.getG(),
                 header.getQuantity());
         List<Double> aleatory = multiplicative.getAleatory();
         System.out.println(aleatory);
         List<Double> interval = new Interval(header.getMin(), header.getMax(), aleatory).getInterval();
 
+        FileManager.writeToArchive(aleatory, "files/multiplicative.num");
         manageMultiplicativeTable(multiplicative.getSeeds(), aleatory, interval);
     }
 
@@ -112,11 +136,12 @@ public class Controller implements ActionListener {
     }
 
     // Linear
-    private void manageLinear(Header header) {
+    private void manageLinear(Header header) throws IOException {
         Linear linear = new Linear(header.getXi(), header.getK(), header.getC(), header.getG(), header.getQuantity());
         List<Double> aleatory = linear.getAleatory();
         List<Double> interval = new Interval(header.getMin(), header.getMax(), aleatory).getInterval();
 
+        FileManager.writeToArchive(aleatory, "files/linear.num");
         manageLinearTable(linear.getSeeds(), aleatory, interval);
     }
 
@@ -131,12 +156,12 @@ public class Controller implements ActionListener {
     }
 
     // Middle
-    private void manageMiddleSqr(Header header) {
+    private void manageMiddleSqr(Header header) throws IOException {
         MiddleSquare middleSquare = new MiddleSquare(header.getSeed(), header.getDigits(), header.getQuantity());
         List<Double> aleatory = middleSquare.getAleatory();
         List<Double> interval = new Interval(header.getMin(), header.getMax(), aleatory).getInterval();
 
-        System.out.println(interval.size());
+        FileManager.writeToArchive(aleatory, "files/middle-sqr.num");
         manageMiddleTable(middleSquare.getCenters(), aleatory, interval);
     }
 
