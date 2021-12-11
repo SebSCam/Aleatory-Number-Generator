@@ -13,6 +13,12 @@ public class Interval {
     private int min;
     private int max;
 
+    /**
+     * 
+     * @param min Minimo
+     * @param max Maximo
+     * @param aleatory Lista de aleatorios 0-1
+     */
     public Interval(int min, int max, List<Double> aleatory) {
         this.aleatory = aleatory;
         this.min = min;
@@ -22,6 +28,10 @@ public class Interval {
         calculateDeviation();
     }
 
+    /**
+     * 
+     * @return Intervalo de numeros
+     */
     public List<Double> getInterval() {
         this.interval = new ArrayList<>();
         for (Double ri : aleatory) {
@@ -46,19 +56,35 @@ public class Interval {
         }
     }
 
+    /**
+     * 
+     * @return Desviacion Estandar
+     */
     private double calculateDeviation() {
         deviation = Math.sqrt(variation);
         return deviation;
     }
 
+    /**
+     * 
+     * @return Mean
+     */
     public double getAverage() {
         return average;
     }
 
+    /**
+     * 
+     * @return Deviation St
+     */
     public double getDeviation() {
         return deviation;
     }
 
+    /**
+     * 
+     * @return Variation
+     */
     public double getVariation() {
         return variation;
     }
