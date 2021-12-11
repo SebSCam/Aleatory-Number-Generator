@@ -12,6 +12,12 @@ public class Normal {
     private List<Double> aleatory;
     private List<Double> seeds;
 
+    /**
+     * 
+     * @param quantity   Cantidad de Numeros a Generar
+     * @param inte       Intervalo Aleatorio para Muestra y Desvicion
+     * @param aleatoryXi Semillas para Generar Numeros
+     */
     public Normal(int quantity, Interval inte, List<Double> aleatoryXi) {
         this.average = inte.getAverage();
         System.out.println(average);
@@ -20,6 +26,10 @@ public class Normal {
         this.seeds = aleatoryXi;
     }
 
+    /**
+     * 
+     * @return Lista de Numeros Aleatorios
+     */
     public List<Double> getAleatory() {
         aleatory = new ArrayList<>();
         generateRandom();

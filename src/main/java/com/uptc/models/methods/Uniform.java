@@ -8,11 +8,19 @@ public class Uniform {
     private int quantity;
     private List<Double> aleatory;
 
+    /**
+     * 
+     * @param quantity Cantidad de Numeros a Generar
+     */
     public Uniform(int quantity) {
         this.quantity = quantity;
         this.aleatory = new ArrayList<>();
     }
 
+    /**
+     * 
+     * @return Lista de numeros Aleatorios
+     */
     public List<Double> getAleatory() {
         generateRandom();
         return aleatory;

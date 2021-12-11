@@ -11,6 +11,12 @@ public class MiddleSquare {
     private List<Double> aleatory;
     private List<Integer> centers;
 
+    /**
+     * 
+     * @param seed Semilla Inicial
+     * @param digits Digitos del Centro
+     * @param quantity Cantidad de Numeros a Generar
+     */
     public MiddleSquare(int seed, int digits, int quantity) {
         this.seed = seed;
         this.digits = digits;
@@ -19,11 +25,19 @@ public class MiddleSquare {
         this.centers = new ArrayList<>();
     }
 
+    /**
+     * 
+     * @return Lista de numeros Aleatorios
+     */
     public List<Double> getAleatory() {
         generateRandom(this.seed);
         return aleatory;
     }
 
+    /**
+     * 
+     * @param seed Semilla
+     */
     private void generateRandom(int seed) {
         if (aleatory.size() < quantity) {
             int pow = (int) Math.pow(seed, 2);
@@ -34,15 +48,25 @@ public class MiddleSquare {
         }
     }
 
+    /**
+     * 
+     * @param pow Semilla para calcular nueva semilla
+     * @return Centro de la semilla
+     */
     private Integer calculateCenter(int pow) {
         String aux = String.valueOf(pow);
         int step = (digits * 2) - aux.length();
         char[] number = new char[digits * 2];
         number = fillNumber(step, aux, number);
-        return Integer.valueOf(getCenterNumber(aux, number));
+        return Integer.valueOf(getCenterNumber(number));
     }
 
-    private String getCenterNumber(String aux, char[] number) {
+    /**
+     * 
+     * @param number Arreglo de characters para obtener las posiciones centrales
+     * @return Centro de la semilla
+     */
+    private String getCenterNumber(char[] number) {
         String newSeed = "";
         int position = calculatePosition(number);
         for (int i = position; i < position + digits; i++) {
@@ -51,11 +75,23 @@ public class MiddleSquare {
         return newSeed;
     }
 
+    /**
+     * 
+     * @param number Semilla
+     * @return Posiciones a rellenar de 0's
+     */
     private int calculatePosition(char[] number) {
         int rest = number.length - digits;
         return Math.floorDiv(rest, 2);
     }
 
+    /**
+     * 
+     * @param step Posicion de inicio de semilla
+     * @param aux Semilla en String 
+     * @param number nueva semilla como arreglo de caracteres
+     * @return semilla nueva rellena con ceros
+     */
     private char[] fillNumber(int step, String aux, char[] number) {
         for (int i = 0; i < step; i++) {
             number[i] = '0';
@@ -67,6 +103,10 @@ public class MiddleSquare {
         return number;
     }
 
+    /**
+     * 
+     * @return Lista de Centros
+     */
     public List<Integer> getCenters() {
         return centers;
     }

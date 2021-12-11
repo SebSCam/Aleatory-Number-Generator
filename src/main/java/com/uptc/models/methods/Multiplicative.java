@@ -12,6 +12,13 @@ public class Multiplicative {
     private List<Double> aleatory;
     private List<Integer> seeds;
 
+    /**
+     * 
+     * @param x Valor de X
+     * @param t Valor de T
+     * @param g Valor de G
+     * @param quantity Cantidad de Numeros a Generar
+     */
     public Multiplicative(int x, int t, int g, int quantity) {
         this.x = x;
         this.a = (8 * t) + 3;
@@ -21,11 +28,19 @@ public class Multiplicative {
         this.seeds = new ArrayList<>();
     }
 
+    /**
+     * 
+     * @return Lista de Numeros Aleatorios
+     */
     public List<Double> getAleatory() {
         generateRandom(calculateSeed(this.x));
         return aleatory;
     }
 
+    /**
+     * 
+     * @param seed Semilla
+     */
     private void generateRandom(int seed) {
         if (aleatory.size() < quantity) {
             aleatory.add(calculateNumber(seed));
@@ -35,14 +50,28 @@ public class Multiplicative {
         }
     }
 
+    /**
+     * 
+     * @param seed Semilla para generar Ri
+     * @return Numero Aleatorio
+     */
     private Double calculateNumber(int seed) {
         return (double) seed / (m - 1);
     }
 
+    /**
+     * 
+     * @param xi Semilla para generar nueva semilla
+     * @return Nueva semilla
+     */
     private int calculateSeed(int xi) {
         return (xi * a) % m;
     }
 
+    /**
+     * 
+     * @return Lista de Semillas
+     */
     public List<Integer> getSeeds() {
         return seeds;
     }
