@@ -51,7 +51,6 @@ public class Linear {
             aleatory.add(calculateNumber(seed));
             int newSeed = calculateSeed(seed);
             seeds.add(seed);
-            getAleatory();
             generateRandom(newSeed);
         }
     }
